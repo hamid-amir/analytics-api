@@ -1,0 +1,20 @@
+services:
+  app:
+    image: "analytics-api:v1"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    # volumes:
+    #   - ./src:/code:rw
+    develop:
+      watch:
+        - path: Dockerfile
+          action: rebuild
+        - path: pyproject.toml
+          action: rebuild
+        - path: compose.yaml
+          action: rebuild
