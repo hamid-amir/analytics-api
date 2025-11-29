@@ -32,9 +32,11 @@ RUN sh /uv-installer.sh && rm /uv-installer.sh
 # Ensure the installed binary is on the `PATH`
 ENV PATH=/root/.local/bin/:$PATH
 # Copy the requirements file into the container
-COPY pyproject.toml /code/pyproject.toml
+COPY pyproject.toml /opt/pyproject.toml
 # Install dependencies
-RUN uv sync
+RUN cd /opt && uv sync
+# Activate environment by adding its path to PATH
+ENV PATH=/opt/.venv/bin/:$PATH
 
 # copy the project code into the container's working directory
 COPY ./src /code
