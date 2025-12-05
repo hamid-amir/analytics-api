@@ -1,9 +1,25 @@
+from contextlib import asynccontextmanager
 from typing import Union
 from fastapi import FastAPI
 from api.events import router as event_router
+from api.db.session import init_db
 
 
-app = FastAPI()
+@asynccontextmanager
+async def life_span(app: FastAPI):
+    """
+    - A "lifespan" in FastAPI means:
+    Things to run when the app starts (startup)
+    Things to run when the app stops (shutdown)
+    - The yield separates the two phases:
+    Code before yield → runs at startup
+    Code after yield → runs at shutdown
+    """
+    init_db()
+    yield
+
+
+app = FastAPI(lifespan=life_span)
 app.include_router(event_router, prefix="/api/events")
 
 
