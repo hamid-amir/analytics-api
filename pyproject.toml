@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
+    "faker>=38.2.0",
     "fastapi>=0.122.0",
     "gunicorn>=23.0.0",
     "pip>=25.3",
