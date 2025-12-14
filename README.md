@@ -77,7 +77,7 @@ docker run -d \
 ## API Endpoints
 
 - `GET /` - Health check endpoint
-- `GET /healtz` - API health status
+- `GET /healthz` - API health status
 - `GET /api/events` - List events (returns latest 10)
 - `GET /api/events/{event_id}` - Get event by ID
 - `POST /api/events` - Create a new event
