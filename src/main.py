@@ -1,6 +1,7 @@
 from contextlib import asynccontextmanager
 from typing import Union
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from api.events import router as event_router
 from api.db.session import init_db
 
@@ -20,6 +21,15 @@ async def life_span(app: FastAPI):
 
 
 app = FastAPI(lifespan=life_span)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.include_router(event_router, prefix="/api/events")
 
 
